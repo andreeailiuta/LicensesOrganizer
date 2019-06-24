@@ -17,6 +17,9 @@ public class BundleConfig
         bundles.Add(new StyleBundle("~/styles/login").Include(
             "~/Content/app/Login.css"
         ));
+        bundles.Add(new StyleBundle("~/styles/layout").Include(
+            "~/Content/app/layout.css"
+    ));
 
     }
 }

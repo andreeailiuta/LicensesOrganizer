@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LicensesOrganizer.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,9 @@ namespace LicensesOrganizer.Controllers
 {
     public class HomeController : BaseController
     {
-        // GET: Home
+        //GET: Home
+        [HttpGet]
+        [AddUserRolesToViewBag]
         public ActionResult Index()
         {
             ViewBag.LoggedInUserName = AppUser.UserData.UserName;

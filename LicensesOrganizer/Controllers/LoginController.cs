@@ -1,10 +1,6 @@
-﻿using LicensesOrganizer.AuthenticationFilters;
-using LicensesOrganizer.Infrastructure;
-using LicensesOrganizer.Infrastructure.UserRepository;
+﻿using LicensesOrganizer.Infrastructure.UserRepository;
 using LicensesOrganizer.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -56,6 +52,13 @@ namespace LicensesOrganizer.Controllers
             Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
         }
     }
 }

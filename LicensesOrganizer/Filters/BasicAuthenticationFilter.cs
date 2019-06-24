@@ -10,7 +10,7 @@ using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 
-namespace LicensesOrganizer.AuthenticationFilters
+namespace LicensesOrganizer.Filters
 {
     public class BasicAuthenticationFilter : ActionFilterAttribute, IAuthenticationFilter
     {
