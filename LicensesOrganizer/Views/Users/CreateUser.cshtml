@@ -1,0 +1,108 @@
+﻿@using System.Web.Optimization
+@model LicensesOrganizer.Models.CreateUserViewModel
+@{
+    ViewBag.Title = "CreateUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create User</title>
+    @Styles.Render("~/styles/layout")
+    @Styles.Render("~/styles/bootstrap")
+</head>
+
+
+<body>
+    @{Html.BeginForm("SaveUser", "Users", FormMethod.Post);
+        <br />
+        <h5 class="text-lg-left ml-5 text-secondary">Create new user</h5>
+        <br />
+        <div class="form-group row">
+            @Html.LabelFor(m => m.UserName, new { @class = "text-right col-sm-2 col-form-label" })
+            <div class="col">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control w-50" })
+                @*<input type="text" class="form-control" id="inputUserName" placeholder="User Name">*@
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Password, new { @class = "text-right col-sm-2 col-form-label" })
+            <div class="col">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control w-50" })
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.FirstName, new { @class = "text-right col-sm-2 col-form-label" })
+            <div class="col">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control w-50" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.LastName, new { @class = "text-right col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control w-50" })
+            </div>
+        </div>
+        <div class="form-group row">
+
+            @Html.LabelFor(m => m.BirthDate, new { @class = "text-right col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control w-50" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Email, new { @class = "text-right col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control w-50" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.IsActive, new { @class = "text-right col-sm-2" })
+            <div class="col-sm-10">
+                <div class="form-check">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.IsActive, new { @class = "text-right col-sm-2" })
+            <div class="col-sm-10">
+
+                @Html.DropDownList("RoleId", new List<SelectListItem>
+                    {
+                    new SelectListItem{Text = "Admin", Value ="1"},
+                    new SelectListItem{Text = "ComputerAdmin", Value ="2"},
+                    new SelectListItem{Text = "LicenseAdmin", Value ="3"},
+                    new SelectListItem{Text = "User", Value ="4"}
+                }, new {@class = "custom-select col-sm-2" })
+
+            </div>
+        </div>
+
+        
+
+        <div class="form-group row">
+            <div class="d-flex flex-row-reverse">
+                <div class="p-2">@Html.ActionLink("Cancel", "Index", "Users", null, new { @class = "btn btn-primary" })</div>
+                <div class="p-2"><input type="submit" class="btn btn-primary" value="Register" /></div>
+
+            </div>
+        </div>
+        Html.EndForm();
+    }
+
+    @Scripts.Render("~/bootstrap")
+</body>
+
+</html>
+

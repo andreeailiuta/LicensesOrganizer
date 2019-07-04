@@ -30,15 +30,15 @@
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Licenses Organizer</div>
             <div class="list-group">
-                @if (ViewBag.Userroles.Contains(UserRoles.Admin))
+                @if (ViewBag.UserRole == UserRoles.Admin)
                 {
                     @Html.Partial("AdminMenuPartial");
                 }
-                else if (ViewBag.Userroles.Contains(UserRoles.ComputerAdmin))
+                else if (ViewBag.UserRole == UserRoles.ComputerAdmin)
                 {
                     @Html.Partial("ComputerMenuPartial");
                 }
-                else if (ViewBag.Userroles.Contains(UserRoles.LicenseAdmin))
+                else if (ViewBag.UserRole == UserRoles.LicenseAdmin)
                 {
                     @Html.Partial("LicenseMenuPartial");
                 }

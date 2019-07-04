@@ -13,6 +13,7 @@ namespace LicensesOrganizer.Infrastructure.UserRepository
         void CreateUser(string usernNme, string password);
         UserDataObject VerifyLogin(string userName, string password);
         UserDataObject LoadUserData(int userID);
-
+        List<UserDataObject> GetUsers();
+        void CreateUser(UserDataObject userData);
     }
 }

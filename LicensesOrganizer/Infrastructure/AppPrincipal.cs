@@ -9,20 +9,18 @@ namespace LicensesOrganizer.Infrastructure
 {
     public class AppPrincipal : IPrincipal
     {
-        private UserDataObject _userData;
-
         public AppPrincipal(UserDataObject userData)
         {
-            _userData = userData;
+            UserData = userData;
         }
 
-        public IIdentity Identity => new GenericIdentity(_userData.Email);
+        public IIdentity Identity => new GenericIdentity(UserData.Email);
 
-        public UserDataObject UserData => _userData;
+        public UserDataObject UserData { get; }
 
         public bool IsInRole(string role)
         {
-            return _userData.Roles.IndexOf(role) >= 0;
+            return UserData.RoleName.CompareTo(role) == 0;
         }
 
     }

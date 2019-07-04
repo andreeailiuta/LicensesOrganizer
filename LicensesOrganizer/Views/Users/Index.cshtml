@@ -1,0 +1,55 @@
+﻿@using System.Web.Optimization
+@using NonFactors.Mvc.Grid;
+@model IEnumerable<LicensesOrganizer.Models.UserGridViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Users list</title>
+    @Styles.Render("~/styles/layout")
+    @Styles.Render("~/styles/bootstrap")
+
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet">
+</head>
+<body>
+    <div class="form-group">
+        @Html.ActionLink("Create new user", "CreateUser", "Users", null, new { @class = "btn btn-primary btn-lg active" })
+        <br />
+        <br />
+
+        <div>
+            @(Html
+                                                                                .Grid(Model)
+                                                                                .Build(columns =>
+                                                                                {
+                                                                                    columns.Add(model => model.UserName).Titled("User name");
+                                                                                    columns.Add(model => model.FirstName).Titled("FirstName");
+                                                                                    columns.Add(model => model.LastName).Titled("LastName");
+                                                                                    columns.Add(model => model.BirthDate).Titled("BirthDate");
+                                                                                    columns.Add(model => model.Email).Titled("Email");
+                                                                                    columns.Add(model => model.RoleName).Titled("Role");
+                                                                                    columns.Add(model => model.IsActive).Titled("IsActive");
+
+                                                                                })
+                                                                                .Empty("No data found")
+                                                                                .Css("Container")
+                                                                                .Sortable()
+                                                                                .Pageable()
+            )
+            <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+            <script>
+                +[].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+                    +               new MvcGrid(element);
+                    +           });
+            </script>
+        </div>
+    </div>
+    
+    @Scripts.Render("~/bootstrap")
+</body>
+</html>

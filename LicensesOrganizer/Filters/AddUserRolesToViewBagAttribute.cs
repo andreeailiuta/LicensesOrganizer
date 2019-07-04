@@ -17,7 +17,7 @@ namespace LicensesOrganizer.Filters
             {
                 return;
             }
-            controller.ViewBag.UserRoles = controller.AppUser.UserData.Roles;
+            controller.ViewBag.UserRole = controller.AppUser.UserData.RoleName;
         }
     }
 }

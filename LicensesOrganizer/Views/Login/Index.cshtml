@@ -21,13 +21,18 @@
                         <h5 class="card-title text-center">Sign In</h5>
                         <form method="post" class="form-signin">
                             <div class="form-label-group">
-                                <input name="UserName" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                                <label for="inputEmail">User name</label>
-                            </div>
+                                @*<input name="UserName" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                <label for="inputEmail">User name</label>*@
+                                @Html.TextBox("UserName", null, new { @class = "form-control", id = "inputEmail", placeholder = "Email address", required = true, autofocus = true })
+                                @Html.Label("inputEmail", "User name")
+                                @*<label for="inputEmail">User name</label>*@
+                            </div> 
 
                             <div class="form-label-group">
-                                <input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                                <label for="inputPassword">Password</label>
+                                @*<input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>*@
+                                @Html.TextBox("Password", null, new { @class = "form-control", type = "password", id = "inputPassword", placeholder = "Password", required = true })
+                                @Html.Label("inputPassword", "Password")
+                                @*<label for="inputPassword">Password</label>*@
                             </div>
 
                             <div class="custom-control custom-checkbox mb-3">
