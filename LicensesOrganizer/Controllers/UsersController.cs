@@ -1,4 +1,5 @@
-﻿using LicensesOrganizer.DataModels;
+﻿using LicensesOrganizer.Common;
+using LicensesOrganizer.DataModels;
 using LicensesOrganizer.Infrastructure.UserRepository;
 using LicensesOrganizer.Models;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 
 namespace LicensesOrganizer.Controllers
 {
+    [Route("/users")]
     public class UsersController : BaseController
     {
         private IUserRepository _userRepository;
@@ -21,54 +23,70 @@ namespace LicensesOrganizer.Controllers
         {
             var users = _userRepository.GetUsers();
 
-            return View(users.Select(x => new UserGridViewModel()
-            {
-                CreationDate = x.CreationDate,
-                Email = x.Email,               
-                RoleName = x.RoleName,
-                UserID = x.UserID,
-                UserName = x.UserName,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                BirthDate = x.BirthDate,
-                IsActive = x.IsActive
-
-            }));
+            return View(users.Select(x => x.ToGridViewModel()));
         }
 
         //GET: Create user form
         [HttpGet]
-        public ActionResult CreateUser()
+        [Route("{id}")]
+        public ActionResult CreateUser(int? id)
         {
-            return View();
+            //If no id is passed then we just return the view, meaning it's the create new user form. 
+            if(id == null)
+            {
+                return View();
+            }
+            //otherwise, load up the user and pass it to the view so it can fill the edit form. 
+            else
+            {
+                var user = _userRepository.LoadUserData(id.Value);
+                if(user == null)
+                {
+                    ModelState.AddModelError("Edit User", $"No user found with id {id.Value}");
+                    return View();
+                }
+
+                return View(user.ToCreateUserViewModel());
+            }
+
         }
 
 
-        //POST: Create user fom
+        //POST: Create user form
         [HttpPost]
         public ActionResult SaveUser(CreateUserViewModel model)
         {
-            var userData = new UserDataObject();
+            var userData = model.ToUserDataObject();
            
-
-            userData.UserName = model.UserName;
-            userData.Password = model.Password;
-            userData.FirstName = model.FirstName;
-            userData.LastName = model.LastName;
-            userData.RoleID = model.RoleId;
-            userData.BirthDate = model.BirthDate;
-            userData.Email = model.Email;
-            userData.IsActive = model.IsActive;
-            userData.CreatedBy = this.AppUser.UserData.UserName;
-            userData.RoleID = model.RoleId;
-
-            _userRepository.CreateUser(userData);
+            if (model.IsUpdating)
+            {
+                userData.LastModifiedBy = this.AppUser.UserData.UserName;
+                _userRepository.UpdateUser(userData);
+            }
+            else
+            {
+                userData.CreatedBy = this.AppUser.UserData.UserName;
+                _userRepository.CreateUser(userData);
+            }
+           
+            
 
             // If we got this far, something failed, redisplay form
 
             return RedirectToAction("Index");
         }
 
-    }
+        //POST: Delete user
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            _userRepository.DeleteUser(id);
 
+
+            // If we got this far, something failed, redisplay form
+
+            return RedirectToAction("Index");
+        }
+    }
 }

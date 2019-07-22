@@ -15,5 +15,7 @@ namespace LicensesOrganizer.Infrastructure.UserRepository
         UserDataObject LoadUserData(int userID);
         List<UserDataObject> GetUsers();
         void CreateUser(UserDataObject userData);
+        void UpdateUser(UserDataObject userData);
+        void DeleteUser(int userID);
     }
 }

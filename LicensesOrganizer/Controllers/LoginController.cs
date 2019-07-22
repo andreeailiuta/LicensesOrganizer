@@ -35,7 +35,9 @@ namespace LicensesOrganizer.Controllers
             var authenticatedUser = _userRepository.VerifyLogin(model.UserName, model.Password);
             if (authenticatedUser == null)
             {
-                return new HttpUnauthorizedResult("Username or password is incorrect");
+                //return new HttpUnauthorizedResult("Username or password is incorrect");
+                ModelState.AddModelError("", "Username or password is incorrect.");
+                return View(model);
             }
 
             // Create the authentication ticket with custom user data.

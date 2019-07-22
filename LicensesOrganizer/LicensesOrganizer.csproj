@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\UserDataObjectExtensions.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\AddUserRolesToViewBagAttribute.cs" />
     <Compile Include="Filters\BasicAuthenticationFilter.cs" />

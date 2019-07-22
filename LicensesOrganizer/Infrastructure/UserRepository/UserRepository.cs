@@ -146,5 +146,48 @@ namespace LicensesOrganizer.Infrastructure.UserRepository
                
             }
         }
+
+        public void UpdateUser(UserDataObject userData)
+        {
+
+            //return new UserDataObject();
+            using (SqlConnection connection = DBConnectionFactory.CreateConnection())
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "dbo.UpdateUser";
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UserID", userData.UserID);
+                    command.Parameters.AddWithValue("@UserName", userData.UserName);
+                    command.Parameters.AddWithValue("@FirstName", userData.FirstName);
+                    command.Parameters.AddWithValue("@LastName", userData.LastName);
+                    command.Parameters.AddWithValue("@BirthDate", userData.BirthDate);
+                    command.Parameters.AddWithValue("@Email", userData.Email);
+                    command.Parameters.AddWithValue("@IsActive", userData.IsActive);
+                    command.Parameters.AddWithValue("@RoleId", userData.RoleID);
+                    command.Parameters.AddWithValue("@LastModifiedBy", userData.LastModifiedBy);
+                    command.ExecuteNonQuery();
+                }
+                
+            }
+        }
+
+        public void DeleteUser(int userId)
+        {
+
+            //return new UserDataObject();
+            using (SqlConnection connection = DBConnectionFactory.CreateConnection())
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "dbo.DeleteUser";
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@UserID", userId);
+                    
+                    command.ExecuteNonQuery();
+                }
+
+            }
+        }
     }
 }

@@ -24,32 +24,72 @@
 
         <div>
             @(Html
-                                                                                .Grid(Model)
-                                                                                .Build(columns =>
-                                                                                {
-                                                                                    columns.Add(model => model.UserName).Titled("User name");
-                                                                                    columns.Add(model => model.FirstName).Titled("FirstName");
-                                                                                    columns.Add(model => model.LastName).Titled("LastName");
-                                                                                    columns.Add(model => model.BirthDate).Titled("BirthDate");
-                                                                                    columns.Add(model => model.Email).Titled("Email");
-                                                                                    columns.Add(model => model.RoleName).Titled("Role");
-                                                                                    columns.Add(model => model.IsActive).Titled("IsActive");
-
-                                                                                })
-                                                                                .Empty("No data found")
-                                                                                .Css("Container")
-                                                                                .Sortable()
-                                                                                .Pageable()
+                        .Grid(Model)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.UserName).Titled("User name");
+                            columns.Add(model => model.FirstName).Titled("FirstName");
+                            columns.Add(model => model.LastName).Titled("LastName");
+                            columns.Add(model => model.BirthDate).Titled("BirthDate").Formatted("{0:d}"); ;
+                            columns.Add(model => model.Email).Titled("Email");
+                            columns.Add(model => model.RoleName).Titled("Role");
+                            columns.Add(model => model.IsActive).Titled("Active");
+                            columns.Add().RenderedAs((model, row) => Html.ActionLink("Edit", "CreateUser","Users", new {id = model.UserID }, null)).Titled(""); //with route values
+                            //columns.Add().RenderedAs((model, row) => Html.ActionLink("Delete", "DeleteUser", "Users", new { id = model.UserID }, null)).Titled("");
+                            columns.Add().RenderedAs((model, row) => Html.ActionLink("Delete", null, null, new { onclick = $"return showDeleteUserConfirmation('{model.UserName}', {model.UserID});"})); //string interpolation
+                         })
+                         .Empty("No data found")
+                         .Css("Container")
+                         .Sortable()
+                         .Pageable()
             )
             <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
             <script>
                 +[].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
-                    +               new MvcGrid(element);
-                    +           });
+                + new MvcGrid(element);
+                + });
             </script>
         </div>
     </div>
-    
+   
     @Scripts.Render("~/bootstrap")
+    <script type="text/javascript">
+        //Use template literals
+        function showDeleteUserConfirmation(userName, userId) {
+            var modalId = `modal${userId}`;
+            var template = `<div class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete user ${userName}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Are you sure you want to delete this user?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                                    
+                                    <a class="btn btn-primary" href="/Users/DeleteUser/${userId}">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>`;
+
+            var newElement = document.createElement('div');
+            newElement.innerHTML = template;
+            document.body.appendChild(newElement);
+
+            $(`#${modalId}`).modal('show');    
+            $(`#${modalId}`).on('hidden.bs.modal', function (e) {
+                var elem = document.querySelector(`#${modalId}`);
+                elem.parentNode.removeChild(elem);
+            })
+
+            return false;
+        }
+    </script>
 </body>
+
 </html>

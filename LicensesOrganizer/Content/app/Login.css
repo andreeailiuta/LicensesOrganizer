@@ -1,16 +1,16 @@
-﻿    :root {
-        --input-padding-x: 1.5rem;
-        --input-padding-y: .75rem;
-    }
+﻿:root {
+    --input-padding-x: 1.5rem;
+    --input-padding-y: .75rem;
+}
 
-    body {
-        background: white;
-    }
+body {
+    background: white;
+}
 
-    .card-signin {
-        border: 0;   
-        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-    }
+.card-signin {
+    border: 0;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
 
     .card-signin .card-title {
         margin-bottom: 2rem;
@@ -22,10 +22,10 @@
         padding: 2rem;
     }
 
-    .form-signin {
-        width: 100%;
-        width: 100%;
-    }
+.form-signin {
+    width: 100%;
+    width: 100%;
+}
 
     .form-signin .btn {
         font-size: 80%;
@@ -35,10 +35,10 @@
         transition: all 0.2s;
     }
 
-    .form-label-group {
-        position: relative;
-        margin-bottom: 1rem;
-    }
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
 
     .form-label-group input {
         height: auto;
@@ -63,24 +63,29 @@
         transition: all .1s ease-in-out;
     }
 
-    .form-label-group input::-webkit-input-placeholder {
+    .form-label-group input::-webkit-input-placeholder ~ label {
         color: transparent;
+        opacity: 0;
     }
 
-    .form-label-group input:-ms-input-placeholder {
+    .form-label-group input:-ms-input-placeholder ~ label {
         color: transparent;
+        opacity: 0;
     }
 
-    .form-label-group input::-ms-input-placeholder {
+    .form-label-group input::-ms-input-placeholder ~ label {
         color: transparent;
+        opacity: 0;
     }
 
-    .form-label-group input::-moz-placeholder {
+    .form-label-group input::-moz-placeholder ~ label {
         color: transparent;
+        opacity: 0;
     }
 
-    .form-label-group input::placeholder {
+    .form-label-group input::placeholder ~ label {
         color: transparent;
+        opacity: 0;
     }
 
     .form-label-group input:not(:placeholder-shown) {
@@ -93,4 +98,5 @@
         padding-bottom: calc(var(--input-padding-y) / 3);
         font-size: 12px;
         color: #777;
-        }
+        opacity: 1;
+     }
